@@ -50,7 +50,7 @@ describe('ParkingLot', ()=> {
     ]);
   });
 
-  xit("fills in empty spaces first", function() {
+  it("fills in empty spaces first", function() {
     var parkingLot = new ParkingLot(5);
     parkingLot.park('aaa-123');
     parkingLot.park('bbb-456'); // this one will leave
@@ -86,7 +86,7 @@ describe('ParkingLot', ()=> {
     ]);
   });
 
-  xit("can compact cars in the lot", function() {
+  it("can compact cars in the lot", function() {
     var parkingLot = new ParkingLot(8);
 
     parkingLot.park('aaa-123');
@@ -127,5 +127,4 @@ describe('ParkingLot', ()=> {
       "Position 8: (empty)",
     ]);
   });
-
 });
