@@ -86,7 +86,7 @@ describe('ParkingLot', ()=> {
     ]);
   });
 
-  it("can compact cars in the lot", function() {
+  it("can compact cars in the lot with even number of spaces", function() {
     var parkingLot = new ParkingLot(8);
 
     parkingLot.park('aaa-123');
@@ -125,6 +125,50 @@ describe('ParkingLot', ()=> {
       "Position 6: (empty)",
       "Position 7: (empty)",
       "Position 8: (empty)",
+    ]);
+  });
+
+  it("can compact cars in the lot with odd number of spaces", function() {
+    var parkingLot = new ParkingLot(9);
+
+    parkingLot.park('aaa-123');
+    parkingLot.park('bbb-123');
+    parkingLot.park('ccc-123');
+    parkingLot.park('ddd-123');
+    parkingLot.park('eee-123');
+    parkingLot.park('fff-123');
+    parkingLot.park('ggg-123');
+    parkingLot.park('hhh-123');
+
+    parkingLot.leave('bbb-123');
+    parkingLot.leave('ddd-123');
+    parkingLot.leave('fff-123');
+    parkingLot.leave('ggg-123');
+
+    assert.deepEqual(parkingLot.summary(), [
+      "Position 1: aaa-123",
+      "Position 2: (empty)",
+      "Position 3: ccc-123",
+      "Position 4: (empty)",
+      "Position 5: eee-123",
+      "Position 6: (empty)",
+      "Position 7: (empty)",
+      "Position 8: hhh-123",
+      "Position 9: (empty)",
+    ]);
+
+    parkingLot.compact();
+
+    assert.deepEqual(parkingLot.summary(), [
+      "Position 1: aaa-123",
+      "Position 2: hhh-123",
+      "Position 3: ccc-123",
+      "Position 4: eee-123",
+      "Position 5: (empty)",
+      "Position 6: (empty)",
+      "Position 7: (empty)",
+      "Position 8: (empty)",
+      "Position 9: (empty)",
     ]);
   });
 });

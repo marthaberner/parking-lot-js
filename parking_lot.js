@@ -55,18 +55,23 @@ ParkingLot.prototype.leave = function(licensePlate) {
 }
 
 ParkingLot.prototype.compact = function() {
-  var vacant = [];
   var occupied = [];
 
   //Create arrays of subscripts of those elements of this.spaces that are either vacant or occupied
   for (var i = 0; i < this.spaces.length; i++) {
-    if(this.spaces[i] === "(empty)")
-      vacant.push(i);
-    else
+    if(this.spaces[i] !== "(empty)")
       occupied.push(i);
   }
 
-  //Copy cars from later occupied spaces into earlier vacant spaces, then set later space to (empty)
+  var halfLength = this.spaces.length % 2 === 0 ? this.spaces.length / 2 : this.spaces.length / 2 - 0.5;
+
+  for (var i = 0; i < halfLength; i++) {
+    if(this.spaces[i] === "(empty)") {
+      this.spaces[i] = this.spaces[occupied[occupied.length - 1]];
+      this.spaces[occupied[occupied.length - 1]] = "(empty)";
+      occupied.pop();
+    }
+  }
 }
 
 module.exports = ParkingLot;
